@@ -30,15 +30,16 @@ public class SpringQueryBus implements QueryBus {
      * Delegates the handling of the query to the corresponding {@link Bean} from Spring.
      *
      * @param query the query object
+     * @param <E>   the type of the error
      * @param <R>   the type of the result
      * @param <Q>   the type of the query
      * @return either success with result, or an error if anything goes wrong
      */
     @Override
     @SuppressWarnings("unchecked")
-    public <R, Q extends Query> Either<?, R> query(final Q query) {
+    public <E, R, Q extends Query> Either<E, R> query(final Q query) {
         Class<Q> queryClass = (Class<Q>) query.getClass();
-        QueryHandler<R, Q> queryHandler = this.registry.get(queryClass);
+        QueryHandler<E, R, Q> queryHandler = this.registry.get(queryClass);
         return queryHandler.handle(query);
     }
 

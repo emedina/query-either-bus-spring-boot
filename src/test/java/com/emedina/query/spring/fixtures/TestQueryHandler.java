@@ -9,7 +9,7 @@ import io.vavr.control.Either;
  *
  * @author Enrique Medina Montenegro
  */
-public class TestQueryHandler implements QueryHandler<String, TestQuery> {
+public class TestQueryHandler implements QueryHandler<Throwable, String, TestQuery> {
 
     private boolean wasExecuted = false;
     private TestQuery lastQuery;
@@ -24,7 +24,7 @@ public class TestQueryHandler implements QueryHandler<String, TestQuery> {
     }
 
     @Override
-    public Either<?, String> handle(TestQuery query) {
+    public Either<Throwable, String> handle(TestQuery query) {
         this.wasExecuted = true;
         this.lastQuery = query;
         return Either.right(result);

@@ -77,8 +77,8 @@ class RegistryTest {
         registry = new Registry(applicationContext);
 
         // then
-        QueryHandler<String, TestQuery> testHandler = registry.get(TestQuery.class);
-        QueryHandler<Integer, AnotherTestQuery> anotherHandler = registry.get(AnotherTestQuery.class);
+        QueryHandler<Throwable, String, TestQuery> testHandler = registry.get(TestQuery.class);
+        QueryHandler<Throwable, Integer, AnotherTestQuery> anotherHandler = registry.get(AnotherTestQuery.class);
 
         assertThat(testHandler).isNotNull();
         assertThat(testHandler).isInstanceOf(TestQueryHandler.class);
@@ -94,7 +94,7 @@ class RegistryTest {
         registry = new Registry(applicationContext);
 
         // when
-        QueryHandler<String, TestQuery> handler = registry.get(TestQuery.class);
+        QueryHandler<Throwable, String, TestQuery> handler = registry.get(TestQuery.class);
 
         // then
         assertThat(handler).isInstanceOf(TestQueryHandler.class);
@@ -117,8 +117,8 @@ class RegistryTest {
         registry = new Registry(applicationContext);
 
         // when
-        QueryHandler<String, TestQuery> testHandler = registry.get(TestQuery.class);
-        QueryHandler<Integer, AnotherTestQuery> anotherHandler = registry.get(AnotherTestQuery.class);
+        QueryHandler<Throwable, String, TestQuery> testHandler = registry.get(TestQuery.class);
+        QueryHandler<Throwable, Integer, AnotherTestQuery> anotherHandler = registry.get(AnotherTestQuery.class);
 
         // then
         assertThat(testHandler).isInstanceOf(TestQueryHandler.class);

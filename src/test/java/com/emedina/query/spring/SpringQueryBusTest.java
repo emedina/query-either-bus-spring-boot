@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.emedina.query.spring.fixtures.TestQuery;
 import com.emedina.query.spring.fixtures.TestQueryHandler;
-import com.emedina.sharedkernel.query.core.QueryHandler;
 
 import io.vavr.control.Either;
 
@@ -39,12 +38,11 @@ class SpringQueryBusTest {
 
     @Test
     @DisplayName("should execute query successfully when handler exists")
-    @SuppressWarnings("unchecked")
     void shouldExecuteQuerySuccessfully() {
         // given
         TestQuery query = new TestQuery("test message");
         TestQueryHandler handler = new TestQueryHandler("test result");
-        when(registry.get(TestQuery.class)).thenReturn((QueryHandler) handler);
+        when(registry.<Throwable, String, TestQuery>get(TestQuery.class)).thenReturn(handler);
 
         // when
         Either<?, String> result = queryBus.query(query);
@@ -59,12 +57,11 @@ class SpringQueryBusTest {
 
     @Test
     @DisplayName("should delegate to registry to get handler")
-    @SuppressWarnings("unchecked")
     void shouldDelegateToRegistryToGetHandler() {
         // given
         TestQuery query = new TestQuery("test message");
         TestQueryHandler handler = new TestQueryHandler();
-        when(registry.get(TestQuery.class)).thenReturn((QueryHandler) handler);
+        when(registry.<Throwable, String, TestQuery>get(TestQuery.class)).thenReturn(handler);
 
         // when
         queryBus.query(query);
@@ -75,12 +72,11 @@ class SpringQueryBusTest {
 
     @Test
     @DisplayName("should return Either from handler")
-    @SuppressWarnings("unchecked")
     void shouldReturnEitherFromHandler() {
         // given
         TestQuery query = new TestQuery("test message");
         TestQueryHandler handler = new TestQueryHandler("expected result");
-        when(registry.get(TestQuery.class)).thenReturn((QueryHandler) handler);
+        when(registry.<Throwable, String, TestQuery>get(TestQuery.class)).thenReturn(handler);
 
         // when
         Either<?, String> result = queryBus.query(query);
@@ -95,12 +91,11 @@ class SpringQueryBusTest {
 
     @Test
     @DisplayName("should handle null result from handler")
-    @SuppressWarnings("unchecked")
     void shouldHandleNullResultFromHandler() {
         // given
         TestQuery query = new TestQuery("test message");
         TestQueryHandler handler = new TestQueryHandler(null);
-        when(registry.get(TestQuery.class)).thenReturn((QueryHandler) handler);
+        when(registry.<Throwable, String, TestQuery>get(TestQuery.class)).thenReturn(handler);
 
         // when
         Either<?, String> result = queryBus.query(query);

@@ -10,7 +10,7 @@ import com.emedina.sharedkernel.query.core.QueryHandler;
  * @param <H> type of the query handler
  * @author Enrique Medina Montenegro
  */
-class QueryProvider<H extends QueryHandler<?, ?>> {
+class QueryProvider<H extends QueryHandler<?, ?, ?>> {
 
     private final ApplicationContext applicationContext;
     private final Class<H> type;

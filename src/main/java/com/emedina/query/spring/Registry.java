@@ -39,21 +39,21 @@ public final class Registry {
      */
     @SuppressWarnings("unchecked")
     private void register(final ApplicationContext applicationContext, final String name) {
-        Class<QueryHandler<?, ?>> handlerClass = (Class<QueryHandler<?, ?>>) applicationContext.getType(name);
+        Class<QueryHandler<?, ?, ?>> handlerClass = (Class<QueryHandler<?, ?, ?>>) applicationContext.getType(name);
         Class<?>[] generics = GenericTypeResolver.resolveTypeArguments(handlerClass, QueryHandler.class);
 
-        if (generics == null || generics.length < 2) {
+        if (generics == null || generics.length < 3) {
             throw new IllegalStateException("Could not resolve query type for handler: " + name);
         }
 
-        Class<? extends Query> queryType = (Class<? extends Query>) generics[1];
+        Class<? extends Query> queryType = (Class<? extends Query>) generics[2];
         this.providerMap.put(queryType, new QueryProvider<>(applicationContext, handlerClass));
     }
 
     @SuppressWarnings("unchecked")
-    <R, Q extends Query> QueryHandler<R, Q> get(final Class<Q> queryClass) {
+    <E, R, Q extends Query> QueryHandler<E, R, Q> get(final Class<Q> queryClass) {
         QueryProvider<?> provider = this.providerMap.get(queryClass);
-        return (QueryHandler<R, Q>) provider.get();
+        return (QueryHandler<E, R, Q>) provider.get();
     }
 
 }

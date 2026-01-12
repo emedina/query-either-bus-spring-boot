@@ -279,7 +279,7 @@ This project is part of the hexagonal architecture examples and follows the same
 
 ## 🏷️ Tags
 
-`spring-boot` `query-bus` `cqrs` `hexagonal-architecture` `ddd` `query-pattern` `spring-framework` `dependency-injection` `either` `functional-programming` `vavr` `error-handling`
+`spring-boot` `query-either-bus` `cqrs` `hexagonal-architecture` `ddd` `query-pattern` `spring-framework` `dependency-injection` `either` `functional-programming` `vavr` `error-handling`
 
 ---
 
