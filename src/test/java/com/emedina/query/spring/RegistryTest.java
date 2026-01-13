@@ -127,20 +127,21 @@ class RegistryTest {
     }
 
     @Test
-    @DisplayName("should return null when no handler registered for query type")
-    void shouldReturnNullWhenNoHandlerRegisteredForQueryType() {
+    @DisplayName("should throw IllegalArgumentException when no handler registered for query type")
+    void shouldThrowIllegalArgumentExceptionWhenNoHandlerRegisteredForQueryType() {
         // given
         setupWithoutHandlers();
         registry = new Registry(applicationContext);
 
         // when & then
         assertThatThrownBy(() -> registry.get(TestQuery.class))
-            .isInstanceOf(NullPointerException.class);
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("No query handler registered for:");
     }
 
     @Test
-    @DisplayName("should handle empty application context")
-    void shouldHandleEmptyApplicationContext() {
+    @DisplayName("should throw IllegalArgumentException for any query type when application context is empty")
+    void shouldThrowIllegalArgumentExceptionWhenApplicationContextIsEmpty() {
         // given
         setupWithoutHandlers();
 
@@ -149,9 +150,11 @@ class RegistryTest {
 
         // then
         assertThatThrownBy(() -> registry.get(TestQuery.class))
-            .isInstanceOf(NullPointerException.class);
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("No query handler registered for:");
         assertThatThrownBy(() -> registry.get(AnotherTestQuery.class))
-            .isInstanceOf(NullPointerException.class);
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("No query handler registered for:");
     }
 
     @Test
