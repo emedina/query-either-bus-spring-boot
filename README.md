@@ -56,7 +56,7 @@ Add the dependency to your `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>com.emedina.query</groupId>
+    <groupId>io.github.emedina</groupId>
     <artifactId>query-either-bus-spring-boot</artifactId>
     <version>1.0.0</version>
 </dependency>
